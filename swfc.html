@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WFC vs Stochastic WFC</title>
+  <meta name="description" content="Standard Wave Function Collapse and Stochastic WFC side by side on ASCII overworld and cave maps.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'><rect width='8' height='8' fill='%23ff004d'/><rect x='1' y='1' width='6' height='6' fill='%23fff1e8'/><rect x='2' y='2' width='1' height='4' fill='%231d2b53'/><rect x='5' y='2' width='1' height='4' fill='%231d2b53'/><rect x='3' y='3' width='1' height='1' fill='%231d2b53'/><rect x='4' y='4' width='1' height='1' fill='%231d2b53'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="index.html">Nisarg Parikh</a>
+    <nav>
+      <a href="index.html#projects">← Back</a>
+    </nav>
+    <button id="theme-toggle" class="icon-btn" aria-label="Toggle dark mode"></button>
+  </header>
+
+  <main class="wide">
+    <section>
+      <h1 class="page-title">WFC vs Stochastic WFC</h1>
+      <div class="prose">
+        <p>
+          Both generators below learn from the same small hand-drawn map: which tiles are
+          allowed to touch, and how often. Both use the same constraint propagation. They only
+          differ in how the next tile gets chosen:
+        </p>
+        <ul>
+          <li><b>Standard WFC</b> picks a tile by how common it is in the sample overall.
+            Neighbours only decide which tiles are <em>allowed</em>.</li>
+          <li><b>Stochastic WFC</b> (<a href="https://github.com/namelessCrusader/Stochastic-Wave-Function-Collapse/">mine</a>)
+            picks a tile by how often each option appears next to the neighbours already
+            placed, so neighbours also change the <em>odds</em>.</li>
+        </ul>
+        <p>
+          Two settings apply to both equally: the order cells get filled in, and an optional
+          nudge that keeps the overall mix of tiles close to the sample's.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="controls">
+        <div class="seg" id="env-tabs" role="group" aria-label="Map type"></div>
+        <div class="seg" id="order-tabs" role="group" aria-label="Cell order"></div>
+        <div class="seg" id="balance-tabs" role="group" aria-label="Tile balance"></div>
+        <button id="regen" class="btn">Regenerate</button>
+      </div>
+      <p class="muted small" id="order-note"></p>
+
+      <div class="lab-grid">
+        <figure class="panel">
+          <figcaption>Standard WFC</figcaption>
+          <pre class="ascii" id="out-wfc"></pre>
+          <dl class="metrics" id="m-wfc"></dl>
+        </figure>
+        <figure class="panel">
+          <figcaption>Stochastic WFC</figcaption>
+          <pre class="ascii" id="out-swfc"></pre>
+          <dl class="metrics" id="m-swfc"></dl>
+        </figure>
+        <figure class="panel sample-panel">
+          <figcaption>Training sample</figcaption>
+          <pre class="ascii" id="sample"></pre>
+          <ul class="legend" id="legend"></ul>
+        </figure>
+        <div class="prose small metric-notes">
+          <p><b>Same-tile neighbours</b>: share of touching tiles that are the same. Higher means
+            larger, smoother regions; the sample's own value is the target.</p>
+          <p><b>Neighbour-pair match</b>: how closely the mix of touching tile pairs matches the
+            sample (1 minus total variation distance).</p>
+          <p><b>Tile mix match</b>: the same for single tiles. It drops when one tile takes over
+            the map.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Benchmark</h2>
+      <p class="prose">One map can be lucky. This runs every combination several times on the
+        current map type and averages the scores.</p>
+      <div class="controls">
+        <button id="bench" class="btn">Run benchmark</button>
+        <span id="bench-status" class="muted small"></span>
+      </div>
+      <div class="table-wrap">
+        <table id="bench-table" hidden>
+          <thead>
+            <tr><th scope="col">Method</th><th scope="col">Same-tile</th><th scope="col">Pair match</th><th scope="col">Tile mix</th><th scope="col">Restarts</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>What I see</h2>
+      <div class="prose">
+        <ul>
+          <li><b>SWFC makes regions; standard WFC makes speckle.</b> Because standard WFC ignores
+            its neighbours when sampling, any allowed tile can appear anywhere, so its
+            same-tile score stays far below the sample's.</li>
+          <li><b>In classic order, one tile takes over.</b> Cells next to water (or rock) have
+            the fewest options, so both methods fill them first, and those regions keep
+            growing. Balancing can't stop it, because the constraints themselves force the
+            spread.</li>
+          <li><b>Row by row, SWFC shines.</b> Each new tile is conditioned on the tiles above
+            and to its left, which turns SWFC into a Markov chain with WFC's constraints on
+            top. Lakes get sandy shores, and forests and mountains form patches.</li>
+          <li><b>But row by row needs balancing.</b> On its own, the chain rarely finds its
+            way back into water once it leaves, so lakes come out too rare. Nudging toward
+            the sample's tile proportions fixes that for both methods, and with it SWFC gets
+            the best pair match of any setting.</li>
+          <li><b>Neither can plan.</b> Both only look one tile away, so neither draws a whole
+            lake or a proper room. That would need larger patterns or a model that looks
+            further ahead.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="muted small">© <span id="year"></span> Nisarg Parikh · <a href="index.html">Home</a></p>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="theme.js"></script>
+  <script src="wfc.js"></script>
+  <script src="lab.js"></script>
+</body>
+</html>
