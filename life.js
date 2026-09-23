@@ -123,6 +123,8 @@ const Life = (() => {
     canvas = document.createElement("canvas");
     canvas.id = "life";
     canvas.setAttribute("aria-hidden", "true");
+    // Positioning also lives here, so a stale cached stylesheet can't push the page down.
+    Object.assign(canvas.style, { position: "fixed", top: "0", left: "0", zIndex: "-1", pointerEvents: "none" });
     document.body.prepend(canvas);
     ctx = canvas.getContext("2d");
     resize();
