@@ -61,6 +61,18 @@ a:hover { background: var(--accent); color: var(--bg); text-decoration: none; }
 .muted { color: var(--muted); }
 .small { font-size: 13px; }
 
+/* ---------- Game of Life background (life.js) ---------- */
+#life {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.07;
+}
+:root[data-theme="dark"] #life { opacity: 0.1; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #life { opacity: 0.1; } }
+
 /* ---------- Top bar ---------- */
 .topbar {
   position: sticky;
@@ -313,6 +325,8 @@ footer { max-width: 100%; padding: 0 0 24px; text-align: center; }
   image-rendering: pixelated;
   cursor: pointer;
 }
+.life-note { max-width: 640px; margin: 20px auto 0; padding: 0 16px; }
+.life-note .btn { margin-left: 6px; }
 .footer-row {
   display: flex;
   flex-wrap: wrap;
