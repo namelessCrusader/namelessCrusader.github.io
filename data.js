@@ -106,7 +106,8 @@ const SITE = {
     },
   ],
 
-  // Hobby cards. `sprite` must match a key in SPRITES (main.js).
+  // Hobby cards. `sprite` must match a key in SPRITES (main.js). A `facedown` card is the
+  // easter egg trigger: tapping it 5 times opens the training plan (easter-egg.js).
   hobbies: [
     { name: "Cat Enjoyer", type: "Beast / Effect", sprite: "cat", atk: "∞", def: "0",
       text: "If a cat enters the field, all productivity is sent to the Graveyard." },
@@ -118,5 +119,7 @@ const SITE = {
       text: "Draw 1 card. Then read until 3 a.m." },
     { name: "Home Cook", type: "Alchemist / Ritual", sprite: "pot", atk: "1600", def: "1400",
       text: "Tribute some spices to Special Summon dinner. Results may vary." },
+    { name: "???", type: "Trap / Face-down", sprite: "card", atk: "?", def: "?", facedown: true,
+      text: "Activates on ↑ ↑ ↓ ↓ ← → ← → B A. Also responds to persistent tapping." },
   ],
 };

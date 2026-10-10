@@ -89,7 +89,7 @@ function render() {
 
   $("#hobby-list").innerHTML = SITE.hobbies
     .map((h) => `
-      <article class="card">
+      <article class="card${h.facedown ? " facedown" : ""}"${h.facedown ? ' data-egg title="Set face-down"' : ""}>
         <div class="card-name"><span>${h.name}</span></div>
         <div class="card-art">${spriteSVG(h.sprite)}</div>
         <div class="card-text">

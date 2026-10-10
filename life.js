@@ -113,6 +113,18 @@ const Life = (() => {
     if (t - lastDrop >= DROP_MS) { dropRandom(); lastDrop = t; }
   }
 
+  // Drop a handful of spaceships near the middle of the screen (used by the easter egg).
+  function burst(n = 10) {
+    const ships = ["glider", "lightweight spaceship", "middleweight spaceship", "heavyweight spaceship"];
+    for (let i = 0; i < n; i++) {
+      const cx = Math.floor(cols / 2 + (Math.random() - 0.5) * cols * 0.5);
+      const cy = Math.floor(rows / 2 + (Math.random() - 0.5) * rows * 0.5);
+      place(ships[Math.floor(Math.random() * ships.length)], cx, cy);
+    }
+    setRunning(true);
+    draw();
+  }
+
   function setRunning(on) {
     running = on;
     const btn = document.getElementById("life-toggle");
@@ -150,7 +162,7 @@ const Life = (() => {
     requestAnimationFrame(loop);
   }
 
-  return { init };
+  return { init, burst };
 })();
 
 Life.init();

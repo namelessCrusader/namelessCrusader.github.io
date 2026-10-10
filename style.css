@@ -337,6 +337,80 @@ footer { max-width: 100%; padding: 0 0 24px; text-align: center; }
   font-size: 13px;
 }
 
+/* ---------- Easter egg (easter-egg.js) ---------- */
+[data-egg] { touch-action: manipulation; } /* no double-tap zoom while tapping */
+.card.facedown { background: #5f574f; cursor: pointer; }
+.card.facedown .card-art { background: #7e2553; }
+html.egg-open { overflow: hidden; }
+#egg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.egg-window {
+  display: flex;
+  flex-direction: column;
+  width: min(1100px, 100%);
+  height: min(920px, 100%);
+  background: var(--surface);
+  border: var(--px) solid var(--line);
+  box-shadow: 8px 8px 0 var(--shadow);
+}
+.egg-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 8px 6px 12px;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--pixel-font);
+  font-size: 13px;
+}
+.egg-close {
+  font-family: var(--pixel-font);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 0;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+.egg-window iframe { flex: 1; width: 100%; border: 0; background: var(--bg); }
+.egg-banner {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  z-index: 101;
+  transform: translate(-50%, -50%);
+  padding: 16px 28px;
+  font-family: var(--pixel-font);
+  font-size: 24px;
+  text-align: center;
+  white-space: nowrap;
+  color: #ffec27;
+  background: #1d2b53;
+  border: var(--px) solid #ffec27;
+  box-shadow: 6px 6px 0 #000;
+  animation: egg-pop 1.3s steps(8) forwards;
+}
+.egg-banner small { display: block; margin-top: 6px; font-size: 13px; color: #fff1e8; }
+@keyframes egg-pop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+  25%, 80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+@media (max-width: 520px) {
+  #egg-overlay { padding: 8px; }
+  .egg-banner { font-size: 18px; padding: 12px 18px; }
+}
+
 /* ---------- WFC vs SWFC page ---------- */
 main.wide { max-width: 1120px; }
 .page-title {
