@@ -175,12 +175,10 @@ const FS=Z([332,50],[330,72],[325,150],[350,105],[360,70],[345,110],[352,78],[35
 const SH=(p,dx,ks)=>{const o={};K.forEach(k=>o[k]=ks.includes(k)?[p[k][0]+dx,p[k][1]]:p[k].slice());return o};
 const UP=['h','n','p','e1','w1','e2','w2'];
 const SD1=SH(SH(FS,30,['k1','f1']),12,UP),SD2=SH(FS,30,K);
-const PALM=Z([350,52],[345,74],[332,150],[360,105],[365,72],[390,75],[428,66],[357,205],[370,260],[312,205],[292,256]);
-const HF_UP=Z([330,50],[330,72],[325,150],[362,52],[356,16],[345,110],[352,78],[355,205],[370,260],[300,207],[285,260]);
-const HF_DOWN=Z([338,54],[334,75],[326,151],[368,92],[392,122],[347,112],[354,80],[357,206],[370,260],[302,208],[285,260]);
-const ELB=Z([338,52],[333,74],[326,151],[372,80],[342,64],[347,111],[354,79],[356,205],[370,260],[304,207],[287,260]);
-const CLINCH=Z([334,50],[330,72],[325,150],[368,80],[404,78],[362,86],[398,86],[355,205],[370,260],[300,207],[285,260]);
-const KNEE=Z([318,50],[322,72],[325,150],[358,90],[392,100],[352,95],[386,108],[382,125],[358,177],[318,207],[312,260]);
+const LIE=Z([210,246],[232,252],[310,255],[266,240],[296,222],[262,242],[292,226],[365,215],[395,258],[362,216],[391,259]);
+const SHOUT=Z([172,246],[194,252],[272,254],[228,236],[262,222],[226,240],[258,228],[330,246],[384,256],[328,248],[380,258]);
+const BRUP=Z([210,246],[232,252],[296,208],[266,240],[296,222],[262,242],[292,226],[359,214],[395,258],[356,215],[391,259]);
+const KNEEL=Z([264,96],[272,118],[302,193],[248,144],[230,172],[254,146],[238,174],[292,252],[345,258],[296,252],[349,258]);
 const SQ=Z([362,121],[355,142],[330,215],[395,150],[432,155],[392,154],[428,160],[378,200],[365,258],[374,202],[360,259]);
 const ROLL=Z([236,218],[228,240],[300,252],[195,252],[158,258],[197,254],[160,260],[335,205],[380,190],[330,207],[375,193]);
 const DB0=Z([218,246],[240,252],[318,255],[240,210],[240,168],[245,210],[245,168],[318,200],[373,200],[322,202],[377,202]);
@@ -212,21 +210,17 @@ sprawl:{n:"Sprawl",g:"Floor",pr:'',t:"2 × 6–8",tp:"Slow first, then sharp",c:
 ,
 stepdrag:{n:"Step-drag footwork",g:"A clear stretch of floor",pr:'',t:"2 × 1 min",tp:"Never cross or bring the feet together",c:"The foot closest to where you're going moves first, then the other follows the same distance, so your stance never narrows. Forward: lead foot, then rear. Back: rear foot, then lead. Keep the guard up the whole time.",
  s:[[FS,.5,.5,"Lead foot follows back","Stance"],[SD1,.5,.3,"Lead foot steps forward","Step"],[SD2,.5,.6,"Rear foot follows","Stance"],[SD1,.5,.3,"Rear foot steps back","Step"]]},
-palm:{n:"Palm strike",g:"Nothing · a cushion held against a wall makes a target",pr:'',t:"2–3 × 10 / side",tp:"Exhale on each strike, hand straight back",c:"Start with your hands up in front of your face. Strike straight forward with the heel of your palm, fingers pulled back, aiming at chin height. Push off the back foot and turn the hips as the arm extends, then bring the hand straight back. An open palm won't hurt your hand the way a fist can.",
- s:[[FS,.35,.8,"Back to guard","Hands up"],[PALM,.3,.2,"Palm strike, hips turn","Strike"]]},
-hammer:{n:"Hammerfist",g:"Nothing · a pillow on a table makes a target",pr:'',t:"2–3 × 10 / side",tp:"Raise, then drop the fist through",c:"Make a fist and strike with its meaty bottom edge, like hammering a nail, swinging down or across. It's hard to hurt your hand this way and it works very close in. Let your body drop slightly into each strike instead of swinging only the arm.",
- s:[[FS,.4,.6,"Back to guard","Hands up"],[HF_UP,.3,.15,"Raise the fist","Loaded"],[HF_DOWN,.22,.4,"Drop the fist through","Strike"]]},
-elbow:{n:"Elbow strike",g:"Nothing",pr:'',t:"2–3 × 8 / side",tp:"Short and sharp, turn the whole body",c:"For when someone is already too close to punch. Fold the arm so your hand comes back toward your own shoulder, and swing the elbow across at face height, turning your hips and shoulders with it. Keep the other hand up by your face.",
- s:[[FS,.35,.7,"Back to guard","Hands up"],[ELB,.25,.3,"Swing the elbow across","Strike"]]},
-knee:{n:"Knee strike",g:"Nothing · hold a counter edge for balance at first",pr:'',t:"2–3 × 8 / side",tp:"Reach, pull down, drive the knee up",c:"Reach both hands forward as if catching someone's shoulders, pull down, and drive your knee straight up in front of your hips. Stand tall on the support leg and push the hips forward instead of only lifting the knee. Switch legs each set.",
- s:[[FS,.4,.6,"Back to guard","Hands up"],[CLINCH,.3,.15,"Reach and grab","Grab"],[KNEE,.25,.4,"Pull down, knee up","Strike"],[CLINCH,.25,.1,"Foot back down","Reset"]]},
+shrimp:{n:"Shrimp (hip escape)",g:"Floor, ideally a rug or mat",pr:'',t:"2 × 6 / side",tp:"Push off the foot, hips away, re-plant",c:"Lie on your back with knees bent. Turn onto one side, plant the top foot, and push off it to slide your hips away, so you travel head-first along the floor while your forearms push out in front of you. Re-plant the foot and repeat across the room, then come back on the other side. It's the basic move for making space when someone is on top of you.",
+ s:[[LIE,1,.4,"Bring the feet back in","Feet planted"],[SHOUT,.6,.6,"Push off, hips slide away","Arms out, legs long"]]},
+bridgeroll:{n:"Bridge and roll",g:"Floor, ideally a rug or mat",pr:'',t:"2 × 5 / side",tp:"Bridge high, turn over the shoulder",c:"On your back with your feet planted close to your butt. Drive your hips up hard, turn your head and hips toward one shoulder, and roll over that shoulder onto your knees. Go slowly and roll over the shoulder, never the neck. It's the standard way to turn someone off you when they're sitting on top of you.",
+ s:[[LIE,1,.5,"Back to the floor","Feet planted"],[BRUP,.6,.3,"Bridge hard","Hips high"],[KNEEL,.8,1,"Roll over the shoulder","On your knees"]]},
 breakfall:{n:"Backward breakfall",g:"A bed, mat, or soft rug to start",pr:'',t:"2 × 5",tp:"Chin tucked, arms slap the floor",c:"Start in a low squat with arms forward. Roll back onto your rounded back with your chin tucked hard so your head never touches the floor, and slap the floor with both arms at about 45° to spread the impact. Rock back up and repeat. Practice only from a squat; falls from standing belong in a class.",
  s:[[SQ,.9,1,"Rock back up","Squat, arms forward"],[ROLL,.7,1,"Roll back, chin tucked","Slap the floor"]]}
 };
 const SESS={
 A:{name:"Strength A",short:"Push · squat · hinge · carry",min:"~25 min",items:[{pat:"Push",v:['incline','floor']},{pat:"Squat",v:['bss']},{pat:"Hinge",v:['bridge','rdl']},{pat:"Carry",v:['carry']}],note:"Rest 60–90 s between sets. Two hard sets beat three easy ones; the third set is optional."},
 B:{name:"Strength B",short:"Pull · lunge · core · ground",min:"~25 min",items:[{pat:"Pull",v:['door','negative']},{pat:"Lunge",v:['lunge']},{pat:"Core",v:['deadbug']},{pat:"Get-up",v:['standup']},{pat:"Sprawl",v:['sprawl']}],note:"Rest 60–90 s between sets. Pick the pull-up negative only once you have a bar."},
-S:{name:"Skill practice",short:"Strikes · falls · get-ups",min:"~15 min",items:[{pat:"Footwork",v:['stepdrag']},{pat:"Hand strikes",v:['palm','hammer']},{pat:"Elbows & knees",v:['elbow','knee']},{pat:"Falling",v:['breakfall']},{pat:"Get-up",v:['standup']},{pat:"Sprawl",v:['sprawl']}],note:"Easy pace, nowhere near failure: slow and clean first, speed later. Finish with 2–3 rounds of 2 minutes that mix footwork, close-range strikes and sprawls. Skip this day freely when tired."},
+S:{name:"Movement practice",short:"Falls · escapes · get-ups",min:"~15 min",items:[{pat:"Footwork",v:['stepdrag']},{pat:"Falling",v:['breakfall']},{pat:"Hip escape",v:['shrimp']},{pat:"Bridge",v:['bridgeroll']},{pat:"Get-up",v:['standup']},{pat:"Sprawl",v:['sprawl']}],note:"Easy pace, nowhere near failure: slow and clean first, smoother later. Finish with 2–3 rounds of 2 minutes flowing between them: sprawl, get up, step away, sit down into a breakfall, shrimp, and stand back up. Skip this day freely when tired."},
 R:{name:"Rest",short:"Rest or walk",items:[]}
 };
 const WEEKS=[['A','S','B','R','A','S','R'],['B','S','A','R','B','S','R']];
@@ -242,7 +236,7 @@ let vsel=store.get('vars',{});
 
 function renderWeek(){
   $('wk1').setAttribute('aria-pressed',week===0);$('wk2').setAttribute('aria-pressed',week===1);
-  $('days').innerHTML=WEEKS[week].map((s,i)=>{const S=SESS[s];const lbl=s==='S'?'Skill':s==='R'?'Rest':s;
+  $('days').innerHTML=WEEKS[week].map((s,i)=>{const S=SESS[s];const lbl=s==='S'?'Move':s==='R'?'Rest':s;
     return `<button class="day ${s}" aria-pressed="${i===day}" data-i="${i}" aria-label="${DN[i]}: ${S.name}"><span class="dn">${DN[i]}${i===todayIdx?'<span class="today-dot" title="Today"></span>':''}</span><span class="dl">${lbl}</span><span class="ds">${S.short}</span></button>`}).join('');
   [...$('days').children].forEach(b=>b.onclick=()=>{day=+b.dataset.i;exIdx=0;renderWeek();renderDay()});
 }
